@@ -1,13 +1,25 @@
 import json
 import os
+import streamlit as st
 import google.generativeai as genai
 
-# Configure via environment variable: GENAI_API_KEY
-_genai_key = os.getenv("GENAI_API_KEY")
-if not _genai_key:
-    raise EnvironmentError("Please set the GENAI_API_KEY environment variable.")
+# -------------------
+# API Key Handling
+# -------------------
+# First, try to get key from Streamlit secrets
+api_key = st.secrets.get("genai", {}).get("GENAI_API_KEY") if "st" in globals() else None
 
-genai.configure(api_key=_genai_key)
+# Fallback: use environment variable (or .env locally)
+if not api_key:
+    api_key = os.getenv("GENAI_API_KEY")
+
+if not api_key:
+    raise EnvironmentError(
+        "GENAI_API_KEY not found! Set it in Streamlit secrets or as an environment variable."
+    )
+
+# Configure Gemini API
+genai.configure(api_key=api_key)
 _model = genai.GenerativeModel("gemini-2.0-flash")
 
 
@@ -135,7 +147,9 @@ Return JSON only:"""
     return parsed
 
 
+# -------------------
 # Test block
+# -------------------
 if __name__ == "__main__":
     sample = "Uh hi, so um today I will talk about the water cycle."
     print(json.dumps(clean_text(sample), indent=2, ensure_ascii=False))
