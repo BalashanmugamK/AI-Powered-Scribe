@@ -9,5 +9,5 @@ pandas==2.2.3
 python-dotenv==1.0.1
 soundfile==0.12.1
 ffmpeg-python==0.2.0
-# Optional
-# streamlit-webrtc==0.47.1
+streamlit-webrtc==0.47.1
+av==10.0.1
