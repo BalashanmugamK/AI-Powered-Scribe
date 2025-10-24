@@ -2,12 +2,17 @@ import re
 import spacy
 from spacy.cli import download as spacy_download
 
-# Ensure the English model is available
-try:
-    _nlp = spacy.load("en_core_web_sm")
-except OSError:
-    spacy_download("en_core_web_sm")
-    _nlp = spacy.load("en_core_web_sm")
+_nlp = None  # lazy-loaded spaCy model
+
+def get_nlp_model():
+    global _nlp
+    if _nlp is None:
+        try:
+            _nlp = spacy.load("en_core_web_sm")
+        except OSError:
+            spacy_download("en_core_web_sm")
+            _nlp = spacy.load("en_core_web_sm")
+    return _nlp
 
 
 def extract_numbers(text: str):
@@ -23,7 +28,8 @@ def compare_numbers(original: str, cleaned: str):
 
 
 def extract_entities(text: str):
-    doc = _nlp(text)
+    nlp = get_nlp_model()
+    doc = nlp(text)
     return [(ent.text, ent.label_) for ent in doc.ents]
 
 
