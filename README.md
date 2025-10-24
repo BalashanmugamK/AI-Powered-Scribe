@@ -32,22 +32,20 @@ The process is designed for high integrity and accuracy:
 
 ## 🗂️ Folder Structure
 
-
-
-AI-Powered-Scribe/
-├── app.py              # Streamlit UI interface
-├── cleaner.py          # Gemini-based disfluency cleaner module
-├── stt.py              # Speech-to-text integration using Whisper
-├── validator.py        # Validates cleaned vs original text integrity
-├── requirements.txt    # Project dependencies
-├── README.md           # Project documentation
-├── data/
-│   ├── samples/        # Sample audio files for testing
-│   └── outputs/        # Cleaned output transcripts
-├── assets/
-│   ├── icon.png        # Optional logo
-│   └── banner.jpg      # Optional banner image
-└── .env                # Optional: Holds the Gemini API key
+    AI-Powered-Scribe/
+    ├── app.py              # Streamlit UI interface
+    ├── cleaner.py          # Gemini-based disfluency cleaner module
+    ├── stt.py              # Speech-to-text integration using Whisper
+    ├── validator.py        # Validates cleaned vs original text integrity
+    ├── requirements.txt    # Project dependencies
+    ├── README.md           # Project documentation
+    ├── data/
+    │   ├── samples/        # Sample audio files for testing
+    │   └── outputs/        # Cleaned output transcripts
+    ├── assets/
+    │   ├── icon.png        # Optional logo
+    │   └── banner.jpg      # Optional banner image
+    └── .env                # Optional: Holds the Gemini API key
 
 
 ## ⚙️ Setup Instructions
