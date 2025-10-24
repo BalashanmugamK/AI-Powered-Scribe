@@ -1,126 +1,146 @@
-🧠 AI-Powered Scribe: Assistive Answer Recording for Specially-Abled Students
-🎯 Objective
+# 🧠 AI-Powered Scribe: Assistive Answer Recording for Specially-Abled Students
 
-The AI-Powered Scribe assists visually impaired or specially-abled students during verbal answering by converting speech into clean, readable text.
-It removes disfluencies (like “uh”, “um”, repetitions) without altering any factual content.
+## 🎯 Objective
 
-🏗️ System Workflow
+The **AI-Powered Scribe** assists visually impaired or specially-abled students during verbal answering by converting speech into clean, readable text. Its primary function is to remove **disfluencies** (like "uh," "um," repetitions) without altering any factual content, ensuring a fair and accurate transcript of the student's knowledge.
 
-1️⃣ Question is read aloud or accessed via screen reader
-2️⃣ Student speaks their answer
-3️⃣ Speech-to-Text (STT) module transcribes the response
-4️⃣ AI Cleaner removes fillers and repetitions (no factual changes)
-5️⃣ Safety Validator ensures meaning, numbers, and facts are preserved
-6️⃣ Cleaned transcript is saved/submitted as the student’s final answer
+## 🏗️ System Workflow
 
-🧩 Tech Stack
+The process is designed for high integrity and accuracy:
 
-Speech Recognition: Whisper / Python SpeechRecognition → Converts audio to text
+1. **Question is Read:** Question is read aloud or accessed via a screen reader.
 
-Disfluency Cleaner: Gemini API (Google Generative AI) → Removes fillers & repetitions
+2. **Student Speaks:** Student records their verbal answer.
 
-Validation Layer: Python (regex + spaCy) → Ensures facts, numbers, entities remain unchanged
+3. **STT Transcription:** **Speech-to-Text (STT)** module transcribes the audio response (using Whisper).
 
-Frontend / UI: Streamlit → Accessible web interface
+4. **AI Cleaning:** The **AI Cleaner** (powered by Gemini) removes fillers and repetitions. **No factual changes are permitted.**
 
-Deployment: Docker / Streamlit → Portable local or web app
+5. **Safety Validation:** A **Safety Validator** ensures that the original meaning, numbers, and facts are perfectly preserved.
 
-🗂️ Folder Structure
+6. **Final Output:** The cleaned transcript is saved/submitted as the student’s final answer.
+
+## 🧩 Tech Stack
+
+| Component | Technology | Role | 
+ | ----- | ----- | ----- | 
+| **Speech Recognition** | **Whisper / Python SpeechRecognition** | Converts audio to raw text transcript. | 
+| **Disfluency Cleaner** | **Gemini API (Google Generative AI)** | Removes filler words and repetitions using a precise prompt. | 
+| **Validation Layer** | **Python (regex + spaCy)** | Ensures facts, numbers, and named entities remain completely unchanged. | 
+| **Frontend / UI** | **Streamlit** | Provides an accessible, interactive web interface. | 
+| **Deployment** | **Docker / Streamlit** | Facilitates portable local or web app deployment. | 
+
+## 🗂️ Folder Structure
+
+
 
 AI-Powered-Scribe/
-├── app.py # Streamlit UI
-├── cleaner.py # Gemini-based disfluency cleaner
-├── stt.py # Speech-to-text using Whisper
-├── validator.py # Validates cleaned vs original text
-├── requirements.txt # Dependencies
-├── README.md # Project documentation
+├── app.py              # Streamlit UI interface
+├── cleaner.py          # Gemini-based disfluency cleaner module
+├── stt.py              # Speech-to-text integration using Whisper
+├── validator.py        # Validates cleaned vs original text integrity
+├── requirements.txt    # Project dependencies
+├── README.md           # Project documentation
 ├── data/
-│ ├── samples/ # Sample audio files
-│ └── outputs/ # Cleaned output transcripts
+│   ├── samples/        # Sample audio files for testing
+│   └── outputs/        # Cleaned output transcripts
 ├── assets/
-│ ├── icon.png # Optional logo
-│ └── banner.jpg # Optional banner
-└── .env # Optional Gemini API key
+│   ├── icon.png        # Optional logo
+│   └── banner.jpg      # Optional banner image
+└── .env                # Optional: Holds the Gemini API key
 
-⚙️ Setup Instructions
 
-Step 1 — Clone or Create Folder
+## ⚙️ Setup Instructions
+
+### Step 1 — Clone or Create Folder
+
+
 
 mkdir AI-Powered-Scribe
 cd AI-Powered-Scribe
 
 
-Step 2 — Create Virtual Environment
+### Step 2 — Create Virtual Environment
+
+
 
 python -m venv venv
-venv\Scripts\activate        # Windows
-# or
-source venv/bin/activate     # macOS/Linux
+venv\Scripts\activate # Windows
+
+OR
+
+source venv/bin/activate # macOS/Linux
 
 
-Step 3 — Install Dependencies
+### Step 3 — Install Dependencies
+
+Install all necessary packages from the requirements file:
+
+
 
 pip install -r requirements.txt
 
 
-Step 4 — Configure API Key
-Create a .env file or paste key in Streamlit sidebar:
+### Step 4 — Configure API Key
+
+Create a **`.env`** file in the root directory or paste the key directly into the Streamlit sidebar when running the app:
+
+
 
 GENAI_API_KEY=your_google_generative_ai_key_here
 
 
-Step 5 — Run the App
+### Step 5 — Run the App
+
+Start the accessible web interface:
+
+
 
 streamlit run app.py
 
-🧠 Features
 
-Real-time Speech-to-Text (multi-language via Whisper)
+## 🧠 Features
 
-AI-powered filler word removal (Gemini 2.0 Flash)
+* **Real-time Speech-to-Text:** Utilizes **Whisper** for accurate, multi-language transcription.
 
-Strict factual preservation (no meaning or number changes)
+* **AI-Powered Cleaning:** Uses **Gemini 2.0 Flash** for highly effective filler word and repetition removal.
 
-JSON-based deterministic output for auditability
+* **Strict Factual Preservation:** Validation layer ensures *zero change* to meaning, numbers, or factual content.
 
-Human-verifiable validation layer
+* **Auditability:** Uses a **JSON-based deterministic output** for easy auditing and verification.
 
-Accessible Streamlit interface (keyboard/screen-reader support)
+* **Accessible Interface:** **Streamlit** provides an interface with strong keyboard and screen-reader support.
 
-🧪 Example Input & Output
+* **Deterministic LLM Settings:** **`temperature = 0`** and **`response_mime_type = "application/json"`** enforce reproducible, predictable, and strictly formatted output.
 
-Raw Speech Transcript:
+## 🧪 Example Input & Output
 
-“Okay so um hi yeah today I’m gonna uh talk about the uh water cycle I think yeah.”
+This demonstrates the core functionality of removing disfluencies while preserving the core message.
 
-Cleaned Output:
+### Raw Speech Transcript:
 
-“Okay, hi! Today I’m going to talk about the water cycle, I think.”
+> “Okay so um hi yeah today I’m gonna uh talk about the uh water cycle I think yeah.”
 
-Edits Made:
+### Cleaned Output:
 
-Removed fillers: um, uh, yeah
+> “Okay, hi! Today I’m going to talk about the water cycle, I think.”
 
-Fixed punctuation and capitalization
+### Edits Made:
 
-Preserved meaning and factual content
+* Removed fillers: `um`, `uh`, `yeah`.
 
-🔐 Deterministic LLM Settings
+* Fixed punctuation and capitalization for readability.
 
-temperature = 0 → ensures reproducible output
+* **Crucially, the factual content and meaning were preserved.**
 
-response_mime_type = "application/json" → enforces strict JSON format
+## 🚀 Future Improvements
 
-Validator checks numbers and named entities to prevent silent factual changes
+* Integrate `streamlit-webrtc` for native, in-browser microphone recording.
 
-🚀 Future Improvements
+* Develop an offline disfluency cleaner (e.g., using spaCy + rule-based methods) for reduced latency.
 
-Integrate streamlit-webrtc for in-browser microphone recording
+* Enhance multilingual transcription and cleaning capabilities.
 
-Add offline disfluency cleaner (spaCy + rule-based)
+* Add an optional **text summarization** feature for summarizing very long answers.
 
-Enable multilingual transcription
-
-Add text summarization for long answers
-
-Deploy via Docker or cloud platforms for easy access
+* Optimize deployment via Docker or cloud platforms for simplified, universal access.
