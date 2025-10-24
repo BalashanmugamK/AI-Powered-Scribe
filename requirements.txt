@@ -1,13 +1,13 @@
-streamlit
-openai-whisper
-google-generativeai
-pandas
-spacy
-python-dotenv
-soundfile
-ffmpeg-python
-# Optional (if you want to record in-browser):
-# streamlit-webrtc
+streamlit==1.38.0
+git+https://github.com/m-bain/whisper.git
+google-generativeai==0.6.0
+pandas==2.2.3
+spacy==3.7.2
+python-dotenv==1.0.1
+soundfile==0.12.1
+ffmpeg-python==0.2.0
+# Optional
+# streamlit-webrtc==0.47.1
 
-# Add spaCy English model
-en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.6.0/en_core_web_sm-3.6.0-py3-none-any.whl
+# Prebuilt spaCy English model (no gcc compile)
+en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl
