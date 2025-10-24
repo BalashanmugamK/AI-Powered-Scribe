@@ -11,6 +11,7 @@ except OSError:
 
 
 def extract_numbers(text: str):
+    """Extract integers and floats from text."""
     nums = re.findall(r"[-+]?[0-9]*\.?[0-9]+", text)
     return nums
 
@@ -37,3 +38,11 @@ def run_validations(original: str, cleaned: str):
     entity_check = compare_entities(original, cleaned)
     flag = number_check["mismatch"] or entity_check["mismatch"]
     return {"numbers": number_check, "entities": entity_check, "flag_for_review": flag}
+
+
+# Optional test
+if __name__ == "__main__":
+    orig = "There are 42 students in Paris."
+    cleaned = "There are 42 students in Paris."
+    result = run_validations(orig, cleaned)
+    print(result)
