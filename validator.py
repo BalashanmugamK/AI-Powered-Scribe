@@ -10,6 +10,7 @@ def get_nlp_model():
         try:
             _nlp = spacy.load("en_core_web_sm")
         except OSError:
+            # Download the model if not present
             spacy_download("en_core_web_sm")
             _nlp = spacy.load("en_core_web_sm")
     return _nlp
