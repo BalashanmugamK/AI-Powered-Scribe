@@ -1,13 +1,18 @@
 import re
 import spacy
+from spacy.cli import download as spacy_download
 
-# Load spaCy model (installed via requirements.txt)
-_nlp = spacy.load("en_core_web_sm")
+# Ensure the English model is available
+try:
+    _nlp = spacy.load("en_core_web_sm")
+except OSError:
+    spacy_download("en_core_web_sm")
+    _nlp = spacy.load("en_core_web_sm")
 
 
 def extract_numbers(text: str):
-    """Extract integers and floats from text."""
-    return re.findall(r"[-+]?[0-9]*\.?[0-9]+", text)
+    nums = re.findall(r"[-+]?[0-9]*\.?[0-9]+", text)
+    return nums
 
 
 def compare_numbers(original: str, cleaned: str):
@@ -32,10 +37,3 @@ def run_validations(original: str, cleaned: str):
     entity_check = compare_entities(original, cleaned)
     flag = number_check["mismatch"] or entity_check["mismatch"]
     return {"numbers": number_check, "entities": entity_check, "flag_for_review": flag}
-
-
-# Optional test
-if __name__ == "__main__":
-    orig = "There are 42 students in Paris."
-    cleaned = "There are 42 students in Paris."
-    print(run_validations(orig, cleaned))
