@@ -1,0 +1,10 @@
+streamlit
+openai-whisper
+google-generativeai
+pandas
+spacy
+python-dotenv
+soundfile
+ffmpeg-python
+# Optional (if you want to record in-browser):
+# streamlit-webrtc
