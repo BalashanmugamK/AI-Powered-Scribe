@@ -28,7 +28,7 @@ st.markdown(
 st.sidebar.header("Configuration")
 
 # Whisper model selection
-whisper_model = st.sidebar.selectbox("Whisper model", ["small", "base", "medium"], index=0)
+whisper_model = st.sidebar.selectbox("Whisper model", ["small", "base"], index=0)
 
 # -------------------
 # API key handling
