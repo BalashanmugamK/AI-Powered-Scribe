@@ -5,32 +5,50 @@ import tempfile
 import streamlit as st
 from dotenv import load_dotenv
 
-# Load environment variables from .env
+# Load environment variables from .env (for local testing)
 load_dotenv()
 
 from cleaner import clean_text
 from validator import run_validations
-from stt import transcribe_audio  # Make sure stt.py exists with transcribe_audio function
+from stt import transcribe_audio  # Ensure stt.py exists with transcribe_audio function
 
 # Streamlit page config
 st.set_page_config(page_title="AI-Powered Scribe", layout="centered")
 
 st.title("AI-Powered Scribe — Assistive Answer Recording")
 st.markdown(
-    "Upload an audio file (mp3/wav/m4a). "
+    "Upload an audio file (mp3/wav/m4a/ogg). "
     "The app transcribes using Whisper, cleans disfluencies using Gemini, "
     "and validates for factual drift."
 )
 
-# Sidebar: API key and settings
+# -------------------
+# Sidebar settings
+# -------------------
 st.sidebar.header("Configuration")
-api_key = st.sidebar.text_input("GENAI API Key (optional)", type="password")
+
+# Whisper model selection
 whisper_model = st.sidebar.selectbox("Whisper model", ["small", "base", "medium"], index=0)
 
-# Set API key from .env or sidebar
+# -------------------
+# API key handling
+# -------------------
+# First, try to get key from Streamlit secrets
+api_key = st.secrets.get("genai", {}).get("GENAI_API_KEY")
+
+# Fallback: use .env for local testing
+if not api_key:
+    api_key = os.getenv("GENAI_API_KEY")
+
+# Set the API key in environment variable
 if api_key:
     os.environ["GENAI_API_KEY"] = api_key
+else:
+    st.warning("⚠️ No GENAI API Key found! Please add it in Streamlit secrets.")
 
+# -------------------
+# File uploader
+# -------------------
 uploaded_file = st.file_uploader(
     "Upload audio file (mp3/wav/m4a/ogg)", type=["mp3", "wav", "m4a", "ogg"]
 )
