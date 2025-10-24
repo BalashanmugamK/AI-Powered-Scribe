@@ -1,21 +1,13 @@
 import re
 import spacy
-import subprocess
-import sys
 
-# Try to load the spaCy model; download if missing
-try:
-    _nlp = spacy.load("en_core_web_sm")
-except OSError:
-    print("Downloading spaCy 'en_core_web_sm' model...")
-    subprocess.run([sys.executable, "-m", "spacy", "download", "en_core_web_sm"], check=True)
-    _nlp = spacy.load("en_core_web_sm")
+# Load spaCy model (installed via requirements.txt)
+_nlp = spacy.load("en_core_web_sm")
 
 
 def extract_numbers(text: str):
     """Extract integers and floats from text."""
-    nums = re.findall(r"[-+]?[0-9]*\.?[0-9]+", text)
-    return nums
+    return re.findall(r"[-+]?[0-9]*\.?[0-9]+", text)
 
 
 def compare_numbers(original: str, cleaned: str):
@@ -46,5 +38,4 @@ def run_validations(original: str, cleaned: str):
 if __name__ == "__main__":
     orig = "There are 42 students in Paris."
     cleaned = "There are 42 students in Paris."
-    result = run_validations(orig, cleaned)
-    print(result)
+    print(run_validations(orig, cleaned))
